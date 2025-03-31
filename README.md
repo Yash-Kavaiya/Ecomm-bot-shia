@@ -1,31 +1,35 @@
-# Shia E-Commerce Chatbot 🛒💬
+# 🛒 Shia E-Commerce Chatbot 💬
 
-## Project Overview 📋
+[![Dialogflow CX](https://img.shields.io/badge/Dialogflow_CX-4285F4?style=for-the-badge&logo=dialogflow&logoColor=white)](https://cloud.google.com/dialogflow/cx)
+[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/)
+[![BigQuery](https://img.shields.io/badge/BigQuery-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white)](https://cloud.google.com/bigquery)
+
+## 📋 Project Overview
 
 **Shia** is an advanced e-commerce chatbot built with Dialogflow CX, powered by Google Cloud Functions, and utilizing BigQuery for data storage and analytics. This conversational agent provides customers with a seamless shopping experience through natural language interactions.
 
-![Chatbot Flow Diagram](https://your-repo-url/flow-diagram.png)
+<div align="center">
+  <img src="Screenshot_13-3-2025_173251_5000-cs-375025182434-default.cs-asia-southeast1-cash.cloudshell.dev.jpeg" alt="Chatbot Demo" width="600"/>
+</div>
 
-> **Core Purpose**: To enhance customer experience by providing a conversational interface for e-commerce operations including product browsing, order tracking, account management, and customer support.
+> **💡 Core Purpose**: To enhance customer experience by providing a conversational interface for e-commerce operations including product browsing, order tracking, account management, and customer support.
 
----
-
-## Architecture 🏗️
+## 🏗️ Architecture
 
 ### High-Level Components
 
-```
-┌────────────────┐       ┌───────────────┐       ┌───────────────┐
-│   Dialogflow   │◄─────►│  Cloud        │◄─────►│   BigQuery    │
-│   CX Agent     │       │  Functions    │       │   Database    │
-└────────────────┘       └───────────────┘       └───────────────┘
-        ▲                                               ▲
-        │                                               │
-        ▼                                               ▼
-┌────────────────┐                             ┌───────────────┐
-│  User          │                             │   Analytics   │
-│  Interface     │                             │   Dashboard   │
-└────────────────┘                             └───────────────┘
+```mermaid
+graph LR
+    A[User Interface] --> B[Dialogflow CX Agent]
+    B <--> C[Cloud Functions]
+    C <--> D[BigQuery Database]
+    D --> E[Analytics Dashboard]
+    
+    style A fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style B fill:#4285F4,stroke:#333,stroke-width:2px,color:white
+    style C fill:#34A853,stroke:#333,stroke-width:2px,color:white
+    style D fill:#FBBC05,stroke:#333,stroke-width:2px,color:white
+    style E fill:#EA4335,stroke:#333,stroke-width:2px,color:white
 ```
 
 ### Flow Structure
@@ -34,17 +38,15 @@ The chatbot is organized around a hub-and-spoke model with the following main fl
 
 | Flow Name | Description | Primary Functions |
 |-----------|-------------|-------------------|
-| **Start Page** | Entry point and routing hub | Welcome, intent detection |
-| **MAIN_MENU** | Primary navigation | Options presentation, routing |
-| **ORDER_STATUS** | Order tracking | Order lookup, status updates |
-| **BROWSE_PRODUCTS** | Product discovery | Catalog search, filtering, recommendations |
-| **COMPLAINT** | Issue resolution | Complaint logging, escalation |
-| **MY_ACCOUNT** | User profile management | Profile viewing/editing, preferences |
-| **OFFER** | Promotions and deals | Personalized offers, discount codes |
+| 🏠 **Start Page** | Entry point and routing hub | Welcome, intent detection |
+| 📂 **MAIN_MENU** | Primary navigation | Options presentation, routing |
+| 📦 **ORDER_STATUS** | Order tracking | Order lookup, status updates |
+| 🔍 **BROWSE_PRODUCTS** | Product discovery | Catalog search, filtering, recommendations |
+| ⚠️ **COMPLAINT** | Issue resolution | Complaint logging, escalation |
+| 👤 **MY_ACCOUNT** | User profile management | Profile viewing/editing, preferences |
+| 🎁 **OFFER** | Promotions and deals | Personalized offers, discount codes |
 
----
-
-## Technical Components 🔧
+## 🔧 Technical Components
 
 ### 1. Dialogflow CX 🧠
 
@@ -86,10 +88,24 @@ shia-ecommerce-agent/
 
 **Cloud Functions** serve as the backend processing layer, handling:
 
-- **Webhook fulfillment**: Dynamic responses based on database queries
-- **API integration**: Connections to inventory, order management, and payment systems
-- **Data processing**: Formatting and transforming data for both BigQuery and Dialogflow
-- **Authentication**: Secure user verification and session management
+<div class="feature-grid">
+  <div class="feature">
+    <h4>🔄 Webhook fulfillment</h4>
+    <p>Dynamic responses based on database queries</p>
+  </div>
+  <div class="feature">
+    <h4>🔌 API integration</h4>
+    <p>Connections to inventory, order management, and payment systems</p>
+  </div>
+  <div class="feature">
+    <h4>📊 Data processing</h4>
+    <p>Formatting and transforming data for both BigQuery and Dialogflow</p>
+  </div>
+  <div class="feature">
+    <h4>🔐 Authentication</h4>
+    <p>Secure user verification and session management</p>
+  </div>
+</div>
 
 #### Key Functions
 
@@ -134,16 +150,32 @@ exports.productSearch = (req, res) => {
 | `conversations` | Chat history | `session_id`, `timestamp`, `input`, `response`, `intent` |
 | `complaints` | Issue tracking | `complaint_id`, `user_id`, `type`, `status`, `resolution` |
 
----
-
-## Setup & Installation 🚀
+## 🚀 Setup & Installation
 
 ### Prerequisites
 
-- Google Cloud Platform account with billing enabled
-- Dialogflow CX API access
-- Node.js v14+ and npm
-- gcloud CLI
+<table>
+  <tr>
+    <td><b>🧰 Tools & Accounts</b></td>
+    <td><b>📋 Requirements</b></td>
+  </tr>
+  <tr>
+    <td>Google Cloud Platform</td>
+    <td>Account with billing enabled</td>
+  </tr>
+  <tr>
+    <td>Dialogflow CX</td>
+    <td>API access enabled</td>
+  </tr>
+  <tr>
+    <td>Node.js</td>
+    <td>v14+ and npm</td>
+  </tr>
+  <tr>
+    <td>gcloud CLI</td>
+    <td>Latest version installed</td>
+  </tr>
+</table>
 
 ### Step 1: GCP Project Setup
 
@@ -202,33 +234,41 @@ gcloud functions deploy orderStatus \
 3. Configure webhook URLs to point to your deployed Cloud Functions
 4. Test the agent in the Dialogflow simulator
 
----
-
-## Implementation Details 📝
+## 📝 Implementation Details
 
 ### Conversation Flows
 
 #### Start Page
 
+<div class="flow-description">
 The entry point for all conversations, responsible for:
-- Welcoming users
-- Collecting basic context
-- Routing to appropriate specialized flows
+<ul>
+  <li>Welcoming users</li>
+  <li>Collecting basic context</li>
+  <li>Routing to appropriate specialized flows</li>
+</ul>
+</div>
 
 #### Main Menu Flow
 
-```
-⭐ MAIN_MENU
-├── Welcome Page
-│   └── "Welcome to Shia! How can I help you today?"
-├── Intent Recognition
-│   ├── browse_products → BROWSE_PRODUCTS
-│   ├── check_order → ORDER_STATUS
-│   ├── file_complaint → COMPLAINT
-│   ├── view_account → MY_ACCOUNT
-│   └── check_offers → OFFER
-└── Fallback
-    └── "I didn't understand. Would you like to browse products, check an order, or something else?"
+```mermaid
+flowchart TD
+    A[Welcome Page] --> B{Intent Recognition}
+    B -->|Browse Products| C[BROWSE_PRODUCTS]
+    B -->|Check Order| D[ORDER_STATUS]
+    B -->|File Complaint| E[COMPLAINT]
+    B -->|View Account| F[MY_ACCOUNT]
+    B -->|Check Offers| G[OFFER]
+    B -->|Fallback| H[Disambiguation]
+    
+    style A fill:#f9f9f9,stroke:#333,stroke-width:2px
+    style B fill:#4285F4,stroke:#333,stroke-width:2px,color:white
+    style C fill:#34A853,stroke:#333,stroke-width:2px,color:white
+    style D fill:#FBBC05,stroke:#333,stroke-width:2px,color:white
+    style E fill:#EA4335,stroke:#333,stroke-width:2px,color:white
+    style F fill:#4285F4,stroke:#333,stroke-width:2px,color:white
+    style G fill:#34A853,stroke:#333,stroke-width:2px,color:white
+    style H fill:#EA4335,stroke:#333,stroke-width:2px,color:white
 ```
 
 #### Order Status Flow
@@ -267,22 +307,36 @@ The entry point for all conversations, responsible for:
 ]
 ```
 
----
-
-## Integration Guide 🔌
+## 🔌 Integration Guide
 
 ### Webhook Configuration
 
 Connect your Dialogflow CX agent to Cloud Functions by configuring webhooks:
 
-1. In Dialogflow CX console, navigate to **Manage** tab
-2. Select **Webhooks**
-3. Create a new webhook for each function:
-   ```
-   URL: https://[REGION]-[PROJECT_ID].cloudfunctions.net/[FUNCTION_NAME]
-   Method: POST
-   Request Format: Dialogflow CX Webhook Request
-   ```
+<div class="steps-container">
+  <div class="step">
+    <div class="step-number">1</div>
+    <div class="step-content">
+      In Dialogflow CX console, navigate to <b>Manage</b> tab
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">2</div>
+    <div class="step-content">
+      Select <b>Webhooks</b>
+    </div>
+  </div>
+  <div class="step">
+    <div class="step-number">3</div>
+    <div class="step-content">
+      Create a new webhook for each function:
+      <pre>
+URL: https://[REGION]-[PROJECT_ID].cloudfunctions.net/[FUNCTION_NAME]
+Method: POST
+Request Format: Dialogflow CX Webhook Request</pre>
+    </div>
+  </div>
+</div>
 
 ### Testing Locally
 
@@ -299,19 +353,44 @@ npm run dev-server
 dialogflow-cx simulate --project-id=shia-ecommerce-chatbot
 ```
 
----
-
-## Performance Monitoring 📊
+## 📊 Performance Monitoring
 
 ### Key Metrics
 
 Monitor these essential metrics:
 
-- **Conversation Completion Rate**: % of conversations reaching successful resolution
-- **Intent Recognition Accuracy**: % of correctly identified user intents
-- **Fallback Rate**: % of queries resulting in fallback responses
-- **Average Conversation Length**: Number of turns to complete common tasks
-- **User Satisfaction**: Post-conversation ratings (if implemented)
+<table>
+  <tr>
+    <th>Metric</th>
+    <th>Target</th>
+    <th>Importance</th>
+  </tr>
+  <tr>
+    <td>🎯 Conversation Completion Rate</td>
+    <td>> 85%</td>
+    <td>Critical</td>
+  </tr>
+  <tr>
+    <td>🧠 Intent Recognition Accuracy</td>
+    <td>> 90%</td>
+    <td>High</td>
+  </tr>
+  <tr>
+    <td>⚠️ Fallback Rate</td>
+    <td>< 15%</td>
+    <td>Medium</td>
+  </tr>
+  <tr>
+    <td>🔄 Average Conversation Length</td>
+    <td>< 8 turns</td>
+    <td>Medium</td>
+  </tr>
+  <tr>
+    <td>😊 User Satisfaction</td>
+    <td>> 4.2/5</td>
+    <td>High</td>
+  </tr>
+</table>
 
 ### Monitoring Setup
 
@@ -329,40 +408,56 @@ ORDER BY
 LIMIT 14;
 ```
 
----
-
-## Deployment 🌐
+## 🌐 Deployment
 
 ### Production Deployment Checklist
 
-- [ ] Ensure all entity types are thoroughly tested
-- [ ] Verify all webhook connections are operational
-- [ ] Test full conversation flows from start to completion
-- [ ] Configure proper IAM permissions
-- [ ] Set up monitoring alerts
-- [ ] Establish CI/CD pipeline for agent updates
+<div class="checklist">
+  <div class="checklist-item">
+    <input type="checkbox" id="entity-types"> 
+    <label for="entity-types">Ensure all entity types are thoroughly tested</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="webhook-connections"> 
+    <label for="webhook-connections">Verify all webhook connections are operational</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="conversation-flows"> 
+    <label for="conversation-flows">Test full conversation flows from start to completion</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="iam-permissions"> 
+    <label for="iam-permissions">Configure proper IAM permissions</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="monitoring-alerts"> 
+    <label for="monitoring-alerts">Set up monitoring alerts</label>
+  </div>
+  <div class="checklist-item">
+    <input type="checkbox" id="cicd-pipeline"> 
+    <label for="cicd-pipeline">Establish CI/CD pipeline for agent updates</label>
+  </div>
+</div>
 
 ### Integration Options
 
 | Platform | Integration Method | Documentation Link |
-|----------|-------------------|-------------------|
-| Website | Dialogflow Messenger | [Link](https://cloud.google.com/dialogflow/cx/docs/concept/integration/dialogflow-messenger) |
-| Mobile App | Dialogflow API | [Link](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/projects.locations.agents) |
-| Facebook Messenger | Built-in Integration | [Link](https://cloud.google.com/dialogflow/cx/docs/concept/integration/facebook) |
-| Google Assistant | Built-in Integration | [Link](https://cloud.google.com/dialogflow/cx/docs/concept/integration/google-assistant) |
+|----------|-------------------|---------------------|
+| 🌐 Website | Dialogflow Messenger | [Link](https://cloud.google.com/dialogflow/cx/docs/concept/integration/dialogflow-messenger) |
+| 📱 Mobile App | Dialogflow API | [Link](https://cloud.google.com/dialogflow/cx/docs/reference/rest/v3/projects.locations.agents) |
+| 💬 Facebook Messenger | Built-in Integration | [Link](https://cloud.google.com/dialogflow/cx/docs/concept/integration/facebook) |
+| 🗣️ Google Assistant | Built-in Integration | [Link](https://cloud.google.com/dialogflow/cx/docs/concept/integration/google-assistant) |
 
----
-
-## Troubleshooting Guide 🔍
+## 🔍 Troubleshooting Guide
 
 ### Common Issues
 
 | Issue | Possible Causes | Solutions |
 |-------|----------------|-----------|
-| Intent recognition failures | Insufficient training phrases | Add more varied examples to training phrases |
-| Webhook timeouts | Function execution taking too long | Optimize database queries, add caching |
-| Entity extraction issues | Entity definitions too narrow | Broaden entity definitions, add synonyms |
-| Conversation loops | Missing exit conditions in flows | Add clear exit paths, improve error handling |
+| 🧠 Intent recognition failures | Insufficient training phrases | Add more varied examples to training phrases |
+| ⏱️ Webhook timeouts | Function execution taking too long | Optimize database queries, add caching |
+| 🏷️ Entity extraction issues | Entity definitions too narrow | Broaden entity definitions, add synonyms |
+| 🔄 Conversation loops | Missing exit conditions in flows | Add clear exit paths, improve error handling |
 
 ### Debugging Tips
 
@@ -377,19 +472,37 @@ curl -X POST \
   https://[REGION]-[PROJECT_ID].cloudfunctions.net/productSearch
 ```
 
----
+## 🔮 Future Enhancements
 
-## Future Enhancements 🔮
+<div class="enhancement-grid">
+  <div class="enhancement">
+    <h4>🌐 Multi-language Support</h4>
+    <p>Expanding to additional languages</p>
+    <span class="status planned">Planned</span>
+  </div>
+  <div class="enhancement">
+    <h4>🔊 Voice Interface</h4>
+    <p>Adding telephony integration</p>
+    <span class="status in-progress">In Progress</span>
+  </div>
+  <div class="enhancement">
+    <h4>🎯 Personalization Engine</h4>
+    <p>Improved product recommendations</p>
+    <span class="status planned">Planned</span>
+  </div>
+  <div class="enhancement">
+    <h4>💳 Payment Processing</h4>
+    <p>Direct checkout capabilities</p>
+    <span class="status planned">Planned</span>
+  </div>
+  <div class="enhancement">
+    <h4>😊 Sentiment Analysis</h4>
+    <p>Real-time customer satisfaction monitoring</p>
+    <span class="status in-progress">In Progress</span>
+  </div>
+</div>
 
-- **Multi-language Support**: Expanding to additional languages
-- **Voice Interface**: Adding telephony integration
-- **Personalization Engine**: Improved product recommendations
-- **Payment Processing**: Direct checkout capabilities
-- **Sentiment Analysis**: Real-time customer satisfaction monitoring
-
----
-
-## Contributing 👥
+## 👥 Contributing
 
 Contributions are welcome! Please follow these steps:
 
@@ -401,16 +514,106 @@ Contributions are welcome! Please follow these steps:
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
----
-
-## License 📄
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
-
-## Acknowledgements 🙏
+## 🙏 Acknowledgements
 
 - Google Cloud team for Dialogflow CX and BigQuery
 - The open-source community for various tools and libraries
 - All contributors and testers who helped shape this project
+
+<div align="center">
+  <img src="Screenshot_13-3-2025_17303_5000-cs-375025182434-default.cs-asia-southeast1-cash.cloudshell.dev.jpeg" alt="Chatbot Interface" width="400"/>
+  <p><b>Shia E-Commerce Chatbot</b> - Transforming online shopping through conversation!</p>
+</div>
+
+<style>
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.feature {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  border-left: 4px solid #4285F4;
+}
+.feature h4 {
+  margin-top: 0;
+  color: #4285F4;
+}
+.steps-container {
+  margin: 1.5rem 0;
+}
+.step {
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+.step-number {
+  background: #4285F4;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.step-content {
+  flex-grow: 1;
+}
+.checklist {
+  margin: 1rem 0;
+}
+.checklist-item {
+  margin-bottom: 0.5rem;
+}
+.enhancement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.enhancement {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+  border-top: 3px solid #4285F4;
+}
+.enhancement h4 {
+  margin-top: 0;
+  color: #4285F4;
+}
+.status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+.status.planned {
+  background: #FFECB3;
+  color: #FF6F00;
+}
+.status.in-progress {
+  background: #C8E6C9;
+  color: #2E7D32;
+}
+.flow-description {
+  background: #f8f9fa;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border-left: 4px solid #4285F4;
+}
+</style>
