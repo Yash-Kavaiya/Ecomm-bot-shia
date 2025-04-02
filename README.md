@@ -9,7 +9,7 @@
 **Shia** is an advanced e-commerce chatbot built with Dialogflow CX, powered by Google Cloud Functions, and utilizing BigQuery for data storage and analytics. This conversational agent provides customers with a seamless shopping experience through natural language interactions.
 
 <div align="center">
-  <img src="Screenshot_13-3-2025_173251_5000-cs-375025182434-default.cs-asia-southeast1-cash.cloudshell.dev.jpeg" alt="Chatbot Demo" width="600"/>
+  <img src="images/chatbot-demo.jpeg" alt="Chatbot Demo" width="600"/>
 </div>
 
 > **💡 Core Purpose**: To enhance customer experience by providing a conversational interface for e-commerce operations including product browsing, order tracking, account management, and customer support.
@@ -190,6 +190,7 @@ gcloud config set project shia-ecommerce-chatbot
 gcloud services enable dialogflow.googleapis.com
 gcloud services enable cloudfunctions.googleapis.com
 gcloud services enable bigquery.googleapis.com
+gcloud services enable run.googleapis.com
 ```
 
 ### Step 2: BigQuery Setup
@@ -207,9 +208,11 @@ bq mk --table ecommerce_data.conversations schema/conversations_schema.json
 
 ### Step 3: Cloud Functions Deployment
 
+#### Option A: Deploy as Cloud Functions
+
 ```bash
 # Navigate to functions directory
-cd cloud_functions
+cd cloud_run_func
 
 # Install dependencies
 npm install
@@ -227,11 +230,28 @@ gcloud functions deploy orderStatus \
   --allow-unauthenticated
 ```
 
+#### Option B: Deploy to Cloud Run
+
+```bash
+# Navigate to the Cloud Run function directory
+cd cloud_run_func
+
+# Build the Docker image
+gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/shia-ecommerce-chatbot
+
+# Deploy to Cloud Run
+gcloud run deploy shia-ecommerce-chatbot \
+  --image gcr.io/YOUR_PROJECT_ID/shia-ecommerce-chatbot \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated
+```
+
 ### Step 4: Dialogflow CX Setup
 
 1. Create a new agent in Dialogflow CX console
-2. Import the provided agent zip file from `dialogflow/shia-agent.zip`
-3. Configure webhook URLs to point to your deployed Cloud Functions
+2. Import the provided agent zip file from `shia.zip`
+3. Configure webhook URLs to point to your deployed Cloud Functions or Cloud Run service
 4. Test the agent in the Dialogflow simulator
 
 ## 📝 Implementation Details
@@ -448,6 +468,40 @@ LIMIT 14;
 | 💬 Facebook Messenger | Built-in Integration | [Link](https://cloud.google.com/dialogflow/cx/docs/concept/integration/facebook) |
 | 🗣️ Google Assistant | Built-in Integration | [Link](https://cloud.google.com/dialogflow/cx/docs/concept/integration/google-assistant) |
 
+## 🚢 Cloud Run Deployment
+
+To deploy the webhook service to Google Cloud Run:
+
+### Step 1: Build the Docker Image
+
+```bash
+# Navigate to the cloud_run_func directory
+cd cloud_run_func
+
+# Build the container image
+gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/shia-webhook-service
+```
+
+### Step 2: Deploy to Cloud Run
+
+```bash
+# Deploy the container to Cloud Run
+gcloud run deploy shia-webhook-service \
+  --image gcr.io/YOUR_PROJECT_ID/shia-webhook-service \
+  --platform managed \
+  --region us-central1 \
+  --allow-unauthenticated \
+  --set-env-vars="PROJECT_ID=YOUR_PROJECT_ID"
+```
+
+### Step 3: Update Webhook URLs in Dialogflow CX
+
+Once deployed, update your webhook URLs in Dialogflow CX:
+
+```
+https://shia-webhook-service-abcdefghij-uc.a.run.app
+```
+
 ## 🔍 Troubleshooting Guide
 
 ### Common Issues
@@ -465,11 +519,14 @@ LIMIT 14;
 # View Cloud Function logs
 gcloud functions logs read productSearch --limit=50
 
+# View Cloud Run logs
+gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=shia-webhook-service" --limit=50
+
 # Test webhook directly
 curl -X POST \
   -H "Content-Type: application/json" \
   -d @test-payloads/product-search.json \
-  https://[REGION]-[PROJECT_ID].cloudfunctions.net/productSearch
+  https://shia-webhook-service-abcdefghij-uc.a.run.app
 ```
 
 ## 🔮 Future Enhancements
@@ -525,7 +582,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - All contributors and testers who helped shape this project
 
 <div align="center">
-  <img src="Screenshot_13-3-2025_17303_5000-cs-375025182434-default.cs-asia-southeast1-cash.cloudshell.dev.jpeg" alt="Chatbot Interface" width="400"/>
+  <img src="images/chatbot-interface.jpeg" alt="Chatbot Interface" width="400"/>
   <p><b>Shia E-Commerce Chatbot</b> - Transforming online shopping through conversation!</p>
 </div>
 
