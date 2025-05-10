@@ -9,10 +9,19 @@
 **Shia** is an advanced e-commerce chatbot built with Dialogflow CX, powered by Google Cloud Functions, and utilizing BigQuery for data storage and analytics. This conversational agent provides customers with a seamless shopping experience through natural language interactions.
 
 <div align="center">
-  <img src="images/chatbot-demo.jpeg" alt="Chatbot Demo" width="600"/>
+  <img src="Chatbot_opener.jpeg" alt="Chatbot Demo" width="600"/>
 </div>
 
 > **💡 Core Purpose**: To enhance customer experience by providing a conversational interface for e-commerce operations including product browsing, order tracking, account management, and customer support.
+
+
+### 🎥 Demo Video
+
+<div align="center">
+  
+[![Shia E-Commerce Chatbot Demo](https://img.youtube.com/vi/UDTbExwh4vY/0.jpg)](https://www.youtube.com/watch?v=UDTbExwh4vY)
+
+</div>
 
 ## 🏗️ Architecture
 
@@ -106,30 +115,6 @@ shia-ecommerce-agent/
     <p>Secure user verification and session management</p>
   </div>
 </div>
-
-#### Key Functions
-
-```javascript
-// Example of a product search function
-exports.productSearch = (req, res) => {
-  const parameters = req.body.queryResult.parameters;
-  const productType = parameters.product_type;
-  const priceRange = parameters.price_range;
-  
-  // Query products from database
-  return queryProducts(productType, priceRange)
-    .then(products => {
-      // Format response for Dialogflow
-      res.json({
-        fulfillmentMessages: formatProductResults(products)
-      });
-    })
-    .catch(err => {
-      console.error('Error querying products:', err);
-      res.status(500).send('Internal Server Error');
-    });
-};
-```
 
 ### 3. BigQuery Database 💾
 
@@ -245,7 +230,6 @@ gcloud run deploy shia-ecommerce-chatbot \
   --platform managed \
   --region us-central1 \
   --allow-unauthenticated
-```
 
 ### Step 4: Dialogflow CX Setup
 
@@ -358,20 +342,6 @@ Request Format: Dialogflow CX Webhook Request</pre>
   </div>
 </div>
 
-### Testing Locally
-
-For local development and testing:
-
-```bash
-# Install the Dialogflow CX CLI
-npm install -g @google-cloud/dialogflow-cx
-
-# Run local webhook server
-npm run dev-server
-
-# Test with simulated requests
-dialogflow-cx simulate --project-id=shia-ecommerce-chatbot
-```
 
 ## 📊 Performance Monitoring
 
@@ -582,7 +552,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - All contributors and testers who helped shape this project
 
 <div align="center">
-  <img src="images/chatbot-interface.jpeg" alt="Chatbot Interface" width="400"/>
+  <img src="Chatbotdemo.jpeg" alt="Chatbot Interface" width="400"/>
   <p><b>Shia E-Commerce Chatbot</b> - Transforming online shopping through conversation!</p>
 </div>
 
