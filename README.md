@@ -237,32 +237,6 @@ flowchart TD
     B -->|View Account| F[MY_ACCOUNT]
     B -->|Check Offers| G[OFFER]
     B -->|Fallback| H[Disambiguation]
-    
-    style A fill:#f9f9f9,stroke:#333,stroke-width:2px
-    style B fill:#4285F4,stroke:#333,stroke-width:2px,color:white
-    style C fill:#34A853,stroke:#333,stroke-width:2px,color:white
-    style D fill:#FBBC05,stroke:#333,stroke-width:2px,color:white
-    style E fill:#EA4335,stroke:#333,stroke-width:2px,color:white
-    style F fill:#4285F4,stroke:#333,stroke-width:2px,color:white
-    style G fill:#34A853,stroke:#333,stroke-width:2px,color:white
-    style H fill:#EA4335,stroke:#333,stroke-width:2px,color:white
-```
-
-#### Order Status Flow
-
-```
-📦 ORDER_STATUS
-├── Order Identification
-│   ├── By Order Number
-│   │   └── "What's your order number?"
-│   └── By Recent Orders (if authenticated)
-│       └── "Here are your recent orders..."
-├── Status Retrieval (via Cloud Function)
-│   └── Webhook: orderStatusLookup
-└── Status Communication
-    ├── "Your order #12345 is currently being shipped."
-    ├── Delivery ETA
-    └── Tracking information
 ```
 
 #### Additional flows follow similar patterns...
