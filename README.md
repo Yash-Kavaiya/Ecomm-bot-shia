@@ -66,33 +66,6 @@ The chatbot is organized around a hub-and-spoke model with the following main fl
 - **Flow-based design**: Independent conversation modules with clear transitions
 - **Rich response types**: Text, cards, carousels, quick replies
 
-#### Agent Structure
-
-```
-shia-ecommerce-agent/
-├── flows/
-│   ├── start.flow
-│   ├── main_menu.flow
-│   ├── order_status.flow
-│   ├── browse_products.flow
-│   ├── complaint.flow
-│   ├── my_account.flow
-│   └── offer.flow
-├── intents/
-│   ├── navigation_intents.json
-│   ├── product_intents.json
-│   ├── order_intents.json
-│   └── ...
-├── entities/
-│   ├── product_type.json
-│   ├── order_status.json
-│   └── ...
-└── webhooks/
-    ├── product_lookup.json
-    ├── order_fetch.json
-    └── ...
-```
-
 ### 2. Cloud Functions ⚡
 
 **Cloud Functions** serve as the backend processing layer, handling:
