@@ -50,8 +50,8 @@ gcloud config set project YOUR_PROJECT_ID
 gcloud services enable dialogflow.googleapis.com cloudfunctions.googleapis.com bigquery.googleapis.com
 
 # 3. Create BigQuery dataset and table
-bq mk --dataset ecommerce_data
-bq query --use_legacy_sql=false < bigquery/orders.sql
+bq mk --dataset YOUR_PROJECT_ID:ecommerce_data
+cd bigquery && bq query --use_legacy_sql=false < orders.sql && cd ..
 
 # 4. Deploy Cloud Function
 cd cloud_run_func
@@ -702,14 +702,18 @@ gcloud services enable run.googleapis.com
 ### Step 2: BigQuery Setup
 
 ```bash
-# Create dataset
-bq mk --dataset ecommerce_data
+# Create dataset (replace YOUR_PROJECT_ID with your GCP project ID)
+bq mk --dataset YOUR_PROJECT_ID:ecommerce_data
 
-# Create tables from schema files
-bq mk --table ecommerce_data.products schema/products_schema.json
-bq mk --table ecommerce_data.orders schema/orders_schema.json
-bq mk --table ecommerce_data.users schema/users_schema.json
-bq mk --table ecommerce_data.conversations schema/conversations_schema.json
+# Create sample orders table using the provided SQL file
+cd bigquery
+bq query --use_legacy_sql=false < orders.sql
+cd ..
+
+# Optional: Create additional tables as needed
+# bq mk --table YOUR_PROJECT_ID:ecommerce_data.products schema/products_schema.json
+# bq mk --table YOUR_PROJECT_ID:ecommerce_data.users schema/users_schema.json
+# bq mk --table YOUR_PROJECT_ID:ecommerce_data.conversations schema/conversations_schema.json
 ```
 
 ### Step 3: Cloud Functions Deployment
@@ -1527,7 +1531,8 @@ gcloud logging read "resource.type=cloud_function AND severity>=ERROR" --limit=2
 # ========================================
 
 # Test get_order_details webhook
-curl -X POST https://YOUR_REGION-YOUR_PROJECT.cloudfunctions.net/handle_webhook \
+# Replace YOUR_REGION (e.g., us-central1) and YOUR_PROJECT_ID
+curl -X POST https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/handle_webhook \
   -H "Content-Type: application/json" \
   -d '{
     "fulfillmentInfo": {
@@ -1541,7 +1546,7 @@ curl -X POST https://YOUR_REGION-YOUR_PROJECT.cloudfunctions.net/handle_webhook 
   }'
 
 # Test generate_offer webhook
-curl -X POST https://YOUR_REGION-YOUR_PROJECT.cloudfunctions.net/handle_webhook \
+curl -X POST https://YOUR_REGION-YOUR_PROJECT_ID.cloudfunctions.net/handle_webhook \
   -H "Content-Type: application/json" \
   -d '{
     "fulfillmentInfo": {
